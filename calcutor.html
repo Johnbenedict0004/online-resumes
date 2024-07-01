@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="CodeHim">
+    <title>Calculator.com</title>
+<!--Calculator css-->
+    <style>
+      .calculator{
+          max-width: 612px;
+          margin: 10px auto;
+      }
+      #output {
+        background-color: #101417;
+        color: #fff;
+        width: 100%;
+        height: 80px;
+        font-size: 48px;
+        border-radius: 5px;
+        text-align: left;
+        padding: 0px 10px 0px 10px;
+        box-shadow: 0px 0px 30px -5px #fff;
+        box-sizing: border-box;
+      }
+      #buttons {
+        margin-top: 15px;
+      }
+      .button {
+        color: #fff;
+        text-align: center;
+        line-height: 70px;
+        display: inline-block;
+        background-color: #5787d4;
+        border: 1px solid #1d48b5;
+        border-radius: 15px;
+        height: 70px;
+        width: 100px;
+        font-size: 36px;
+        margin-right: -4.6px;
+        cursor: pointer;
+      }
+      .button:hover {
+        background-color: #0066ff;
+        box-shadow: 0px 0px 30px 0px #fff;
+      }
+      .button:active {
+        background-color: #80b3ff;
+        box-shadow: 0px 0px 30px 0px #000;
+      }
+      .number {
+        background-color: #1974be;
+      }
+      .number:active {
+        background-color: #80b3ff;
+        box-shadow: 0px 0px 30px 0px #000;
+      }
+      #zero {
+        width: 200px;
+      }
+      #decimal {
+        font-weight: bold;
+      }
+      #equals {
+        background-color: #0066ff;
+      }
+      #equals:hover {
+        background-color: #fff;
+        color: #000;
+        box-shadow: 0px 0px 30px -5px #fff;
+      }
+      #backspace {
+        background-color: #333333;
+      }
+      #backspace:hover {
+        background-color: #99003d;
+      }
+      #backspace:active {
+        background-color: #ff4d94;
+        box-shadow: 0px 0px 30px 0px #000;
+      }
+      #clear {
+        background-color: #262626;
+      }
+      #clear:hover {
+        background-color: #cc0000;
+      }
+      #clear:active {
+        background-color: #ff4d4d;
+        box-shadow: 0px 0px 30px 0px #000;
+      }
+      #radians, #degrees {
+        width: 200px;
+      }
+      #radians:hover {
+        background-color: #00b38f;
+      }
+      #degrees:hover {
+        background-color: #00b38f;
+      }
+    </style>
+    <style>
+      @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+      @import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+      *{ margin: 0; padding: 0;}
+      body{
+        font-family: 'Roboto', sans-serif;
+        font-style: normal;
+        font-weight: 300;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-size: 15px;
+        background: rgb(62,158,222);
+        background-repeat: no-repeat;
+        background: radial-gradient(circle, rgba(62,158,222,1) 24%, rgb(241, 242, 149) 57%, rgba(4,6,52,1) 99%);
+        margin-top: 30px;
+      }
+      .intro{
+        background: #fff;
+        padding: 60px 30px;
+        color: #333;
+        margin-bottom: 15px;
+        line-height: 1.5;
+        text-align: center;
+      }
+      .intro h1 {
+        font-size: 18pt;
+        padding-bottom: 15px;
+      }
+      .intro p{
+        font-size: 14px;
+      }
+      .action{
+        text-align: center;
+        display: block;
+        margin-top: 20px;
+      }
+      a.btn {
+        text-decoration: none;
+        color: #666;
+        border: 2px solid #666;
+        padding: 10px 15px;
+        display: inline-block;
+        margin-left: 5px;
+      }
+      a.btn:hover{
+        background: #666;
+        color: #fff;
+          transition: .3s;
+      -webkit-transition: .3s;
+      }
+      .btn:before{
+        font-family: FontAwesome;
+        font-weight: normal;
+        margin-right: 10px;
+      }
+      .github:before{content: "\f09b"}
+      .down:before{content: "\f019"}
+      .back:before{content:"\f112"}
+      .credit{
+        background: radial-gradient(circle, rgba(62,158,222,1) 24%, rgba(53,53,232,1) 57%, rgba(4,6,52,1) 99%);
+        padding: 12px;
+        font-size: 9pt;
+        text-align: center;
+        color: #000000;
+        margin-top: 40px;
+      }
+      .credit span:before{
+        font-family: FontAwesome;
+        color: #e41b17;
+        content: "\f004";
+      }
+      .credit a{
+        color: #333;
+        text-decoration: none;
+      }
+      .credit a:hover{
+        color: #1DBF73; 
+      }
+      .credit a:hover:after{
+          font-family: FontAwesome;
+          content: "\f08e";
+          font-size: 9pt;
+          position: absolute;
+          margin: 3px;
+      }
+      main{
+        background: #fff;
+        padding: 20px;
+      }
+      article li{
+        color: #444;
+        font-size: 15px;
+        margin-left: 33px;
+        line-height: 1.5;
+        padding: 5px;
+      }
+      article h1,
+      article h2,
+      article h3,
+      article h4,
+      article p{
+        padding: 14px;
+        color: #333;
+      }
+      article p{
+        font-size: 15px;
+          line-height: 1.5;
+      }
+      @media only screen and (min-width: 720px){
+          main{
+            background-color: rgb(212, 231, 41);
+            max-width: 720px;
+            margin-left: auto;
+            margin-right: auto; 
+            padding: 24px;
+          }
+      }
+      .set-overlayer,
+      .set-glass,
+      .set-sticky {
+        cursor: pointer;
+        height: 45px;
+        line-height: 45px;
+        padding: 0 15px;
+        color: #333;
+        font-size: 16px;
+      }
+      .set-overlayer:after,
+      .set-glass:after,
+      .to-active:after,
+      .set-sticky:after {
+        font-family: FontAwesome;
+        font-size: 18pt;
+        position: relative;
+        float: right;
+      }
+      .set-overlayer:after,
+      .set-glass:after,
+      .set-sticky:after {
+        content: "\f204";
+        transition: .6s;
+      }
+      .to-active:after {
+        content: "\f205";
+        color: #008080;
+        transition: .6s;
+      }
+      .set-overlayer,
+      .set-glass,
+      .set-sticky,
+      .source,
+      .theme-tray {
+        margin: 10px;
+        background: #f2f2f2;
+        border-radius: 5px;
+        border: 2px solid #f1f1f1;
+        box-sizing: border-box;
+      }
+      /* Syntax Highlighter*/
+      pre.prettyprint {
+        padding: 15px !important;
+        margin: 10px;
+        border: 0 !important;
+        background: #f2f2f2;
+        overflow: auto;
+      }
+      .source {
+        white-space: pre;
+        overflow: auto;
+        max-height: 400px;
+      }
+      code{
+          border:1px solid #ddd;
+          padding: 2px;
+          border-radius: 2px;
+      }
+    </style>
+<!--Calculator html-->
+  <body>
+      <main>
+     <!-- Start DEMO HTML (Use the following code into your project)-->
+  <div id="container">
+
+    <div class="calculator">
+      <div class="display">
+
+        <input id="output" type="text" name="" disabled/>
+
+      </div>
+      <div id="buttons">
+        
+        <div class="row">
+          <div class="button" id="clear">C</div>
+          <div class="button">π</div>
+          <div class="button">sqrt</div>
+          <div class="button">sq</div>
+          <div class="button">%</div>
+          <div class="button" id="backspace">&lt;=</div>
+        </div>
+        <div class="row">
+          <div class="button">log</div>
+          <div class="button">sin</div>
+          <div class="button">exp</div>
+          <div class="button">^</div>
+          <div class="button">+/-</div>
+          <div class="button">÷</div>
+        </div>
+        <div class="row">
+          <div class="button">ln</div>
+          <div class="button">cos</div>
+          <div class="button number">7</div>
+          <div class="button number">8</div>
+          <div class="button number">9</div>
+          <div class="button">x</div>
+        </div>
+        <div class="row">
+          <div class="button">n!</div>
+          <div class="button">tan</div>
+          <div class="button number">4</div>
+          <div class="button number">5</div>
+          <div class="button number">6</div>
+          <div class="button">-</div>
+        </div>
+        <div class="row">
+          <div class="button" id="radians">radians</div>
+          <div class="button number">1</div>
+          <div class="button number">2</div>
+          <div class="button number">3</div>
+          <div class="button">+</div>
+        </div>
+        <div class="row">
+          <div class="button" id="degrees">degrees</div>
+          <div class="button number" id="zero">0</div>
+          <div class="button" id>.</div>
+          <div class="button" id="equals">=</div>
+        </div>
+        
+      </div>
+
+    </div>
+  </div>
+      </main>
+<!-- Calculator JS -->
+  <script>
+    var display = document.getElementById("output");
+    var buttons = document.getElementsByClassName("button");
+
+    Array.prototype.forEach.call(buttons, function(button) {
+      button.addEventListener("click", function() {
+        if (button.textContent != "=" && button.textContent != "C" && button.textContent != "x" && button.textContent != "÷" && button.textContent != "sqrt" && button.textContent != "sq" && button.textContent != "%" && button.textContent != "<=" && button.textContent != "+/-" && button.textContent != "sin" && button.textContent != "cos" && button.textContent != "tan" && button.textContent != "log" && button.textContent != "ln" && button.textContent != "^" && button.textContent != "n!" && button.textContent != "π" && button.textContent != "exp" && button.textContent != "radians" && button.textContent != "degrees") {
+          display.value += button.textContent;
+        } else if (button.textContent === "=") {
+          equals();
+        } else if (button.textContent === "C") {
+          clear();
+        } else if (button.textContent === "x") {
+          multiply();
+        } else if (button.textContent === "÷") {
+          divide();
+        } else if (button.textContent === "+/-") {
+          plusMinus();
+        } else if (button.textContent === "<=") {
+          backspace();
+        } else if (button.textContent === "%") {
+          percent();
+        } else if (button.textContent === "π") {
+          pi();
+        } else if (button.textContent === "sq") {
+          square();
+        } else if (button.textContent === "sqrt") {
+          squareRoot();
+        } else if (button.textContent === "sin") {
+          sin();
+        } else if (button.textContent === "cos") {
+          cos();
+        } else if (button.textContent === "tan") {
+          tan();
+        } else if (button.textContent === "log") {
+          log();
+        } else if (button.textContent === "ln") {
+          ln();
+        } else if (button.textContent === "^") {
+          exponent();
+        } else if (button.textContent === "n!") {
+          factorial();
+        } else if (button.textContent === "exp") {
+          exp();
+        } else if (button.textContent === "radians") {
+          radians();
+        } else if (button.textContent === "degrees") {
+          degrees();
+        }
+      });
+    });
+    // function nextLine() {
+    //   if(display.value.length > 19) {
+    //     document.write("\n");
+    //   }
+    // }
+    // **button functions**
+    function checkLength() {
+      if (display.value.length >= 23) {
+        display.value = "Overload Error";
+      }
+    }
+    function syntaxError() {
+      if (eval(display.value) == SyntaxError) {
+        display.value = "Syntax Error";
+      }
+    }
+    function equals() {
+      if ((display.value).indexOf("^") > -1) {
+        var base = (display.value).slice(0, (display.value).indexOf("^"));
+        var exponent = (display.value).slice((display.value).indexOf("^") + 1);
+        display.value = eval("Math.pow(" + base + "," + exponent + ")");
+      } else {
+        display.value = eval(display.value);
+        checkLength();
+        syntaxError();
+      }
+    }
+
+    function clear() {
+      display.value = "";
+    }
+
+    function backspace() {
+      display.value = display.value.substring(0, display.value.length - 1);
+    }
+
+    function multiply() {
+      display.value = display.value + "*";
+    }
+
+    function divide() {
+      display.value = display.value + "/";
+    }
+
+    function plusMinus() {
+      if (display.value.charAt(0) === "-") {
+        display.value = display.value.slice(1);
+      } else {
+        display.value = "-" + display.value;
+      }
+    }
+
+    function factorial() {
+      var result = 1;
+      if (display.value === 0) {
+        display.value = "1";
+      } else if (display.value < 0) {
+        display.value = "undefined";
+      } else {
+        var result = 1;
+        for (var i = display.value; i > 0; i--) {
+          result = result * i;
+        }
+        display.value = result;
+      }
+    }
+
+    function pi() {
+      // if(display.value === "") {
+      //   display.value = Math.PI;
+      // }
+      display.value = (display.value * Math.PI);
+    }
+
+    function square() {
+      display.value = eval(display.value * display.value);
+    }
+
+    function squareRoot() {
+      display.value = Math.sqrt(display.value);
+    }
+
+    function percent() {
+      display.value = display.value / 100;
+    }
+
+    function sin() {
+      display.value = Math.sin(display.value);
+    }
+
+    function cos() {
+      display.value = Math.cos(display.value);
+    }
+
+    function tan() {
+      display.value = Math.tan(display.value);
+    }
+
+    function log() {
+      display.value = Math.log10(display.value);
+    }
+
+    function ln() {
+      display.value = Math.log(display.value);
+    }
+
+    function exponent() {
+      display.value = display.value + "^";
+    }
+
+    function exp() {
+      display.value = Math.exp(display.value);
+    }
+
+    function radians() {
+      display.value = display.value * (Math.PI / 180);
+    }
+
+    function degrees() {
+      display.value = display.value * (180 / Math.PI);
+    }
+  </script>
+  <footer class="credit">Made & ode By:<a> John Benedict P. Tano</footer>
+  </body>
+</html>
